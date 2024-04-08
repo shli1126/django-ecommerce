@@ -8,12 +8,26 @@ class Item(models.Model):
         ("return_partial_refund", "Eligible for return and partial refund"),
         ("no_return_refund", "Not eligible for return and refund"),
     ]
+    CATEGORY_CHOICES = [
+        ("general", "General"),
+        ("clothing", "Clothing"),
+        ("electronics", "Electronics"),
+        ("books", "Books"),
+        ("hone", "Home"),
+        ("sport", "Sporting goods"),
+        ("art", "Collections & arts"),
+        ("motor", "Motors"),
+        ("bussiness", "Bussiness & Industrial"),
+    ]
+
     title = models.CharField(max_length=100)
     price = models.FloatField()
-    # -discount%
     discount = models.FloatField(default=0.0)
     stock = models.IntegerField(default=0)
     retailer = models.CharField(max_length=100, default="ecommerce")
+    category = models.CharField(
+        max_length=100, choices=CATEGORY_CHOICES, default="general"
+    )
     return_policy = models.CharField(
         max_length=100, choices=RETURN_POLICY_CHOICES, default="return_refund"
     )
