@@ -28,11 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = 'users.CustomUser'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 # Application definition
 
 INSTALLED_APPS = [
     "core",
+    "users",
+    # 'django.contrib.sites', 
     'rest_framework',
     "django.contrib.admin",
     "django.contrib.auth",
