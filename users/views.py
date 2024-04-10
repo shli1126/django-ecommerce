@@ -4,17 +4,16 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 
-@api_view(['POST', 'GET'])
+
+@api_view(['POST'])
 def register(request):
-    if request.method == 'POST':
-        serializer = UserRegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({"detail": "GET method not allowed for registration."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-        
+    serializer = UserRegistrationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['POST'])
 def login(request):
     serializer = UserLoginSerializer(data=request.data)
