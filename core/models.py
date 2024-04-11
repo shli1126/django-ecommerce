@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-
+from django.utils import timezone
 
 class Item(models.Model):
     RETURN_POLICY_CHOICES = [
@@ -35,22 +35,31 @@ class Item(models.Model):
     def __str__(self):
         return self.title
 
-
+'''
+Order that has ordered = False can be seen as a shopping cart. 
+OrderItem is the object in Order
+'''
 class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return self.title
 
 
+#Order contain order items 
 class Order(models.Model):
     # whos order
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # contain what items
     items = models.ManyToManyField(OrderItem)
-    start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(null=True, blank=True)
     ordered = models.BooleanField(default=False)
-
+    # ordered_date is only set when the ordered is true
+    def save(self, *args, **kwargs):
+        if self.ordered and not self.ordered_date:
+            self.ordered_date = timezone.now()
+        super(Order, self).save(*args, **kwargs)
+            
     def __str__(self):
         return self.user.username
