@@ -35,7 +35,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 INSTALLED_APPS = [
     "core",
     "users",
-    # 'django.contrib.sites', 
+    #'django.contrib.sites', 
     'rest_framework',
     'rest_framework.authtoken',
     "django.contrib.admin",
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',

@@ -3,9 +3,10 @@ from .serializers import UserRegistrationSerializer, UserLoginSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
-
+from django.views.decorators.csrf import csrf_exempt
 
 @api_view(['POST'])
+@csrf_exempt
 def register(request):
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
@@ -15,6 +16,7 @@ def register(request):
 
 
 @api_view(['POST'])
+@csrf_exempt
 def login(request):
     serializer = UserLoginSerializer(data=request.data)
     if serializer.is_valid():
