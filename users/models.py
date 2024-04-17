@@ -1,6 +1,8 @@
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
+from cart.models import Cart
+from core.models import Order
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -41,6 +43,7 @@ class CustomUser(AbstractBaseUser):
     bio = models.TextField()
     is_verified = models.BooleanField(default=False)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=BUYER)
+    
 
     def has_perm(self, perm, obj=None):
         return self.is_superuser
@@ -50,7 +53,6 @@ class CustomUser(AbstractBaseUser):
 
     objects = CustomUserManager()
 
-    
 
 
     

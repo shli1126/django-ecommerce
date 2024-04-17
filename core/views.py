@@ -5,9 +5,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Item
 from .serializers import ItemSerializer
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 def item_list(request):
     items = Item.objects.all()
@@ -44,17 +41,7 @@ def item_delete(request, pk):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication, TokenAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
-def add_to_cart(request, item_id):
-    content = {
-        'user': str(request.user),  
-        'auth': str(request.auth),  
-    }
-    print(content['user'])
-    print(content['auth'])
-    return Response(content)
+
 
 
 

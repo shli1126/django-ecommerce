@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+
 class Item(models.Model):
     RETURN_POLICY_CHOICES = [
         ("return_refund", "Eligible for return and refund"),
@@ -50,7 +51,7 @@ class OrderItem(models.Model):
 #Order contain order items 
 class Order(models.Model):
     # whos order
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     # contain what items
     items = models.ManyToManyField(OrderItem)
     ordered_date = models.DateTimeField(null=True, blank=True)
