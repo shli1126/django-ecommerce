@@ -4,7 +4,9 @@ from core.models import Item
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey('Cart', related_name='cart_items', on_delete=models.CASCADE)
+    cart = models.ForeignKey(
+        "Cart", related_name="cart_items", on_delete=models.CASCADE
+    )
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
@@ -13,12 +15,13 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cart')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
-    items = models.ManyToManyField(Item, through='CartItem', related_name='carts')  # Specify through model
+    items = models.ManyToManyField(
+        Item, through="CartItem", related_name="carts"
+    )  # Specify through model
 
     def __str__(self):
         return f"Cart for {self.user.username}"
-
-
-
