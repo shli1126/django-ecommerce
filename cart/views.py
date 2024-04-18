@@ -31,6 +31,7 @@ def get_all_items(request):
 
 
 
+
 @api_view(["POST"])
 @authentication_classes(
     [SessionAuthentication, TokenAuthentication, BasicAuthentication]
@@ -50,7 +51,6 @@ def add_to_cart(request, item_id):
             "quantity": cart_item.quantity,
         }
     )
-
 
 
 
