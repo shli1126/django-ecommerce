@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ItemCard from "../components/ItemCard";
+
 const Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,10 +30,9 @@ const Home = () => {
     <div>
       <h1>List All Items</h1>
       <ul>
-        {data.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
+        {data.map((item) => (
+          <li key={item.id}>
+            <ItemCard id={item.id} title={item.title} price={item.price} />
           </li>
         ))}
       </ul>
